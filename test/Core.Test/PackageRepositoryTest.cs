@@ -232,7 +232,7 @@ namespace NuGet.Test
             Assert.Equal(packages.First().Id, "A");
             Assert.Equal(packages.First().Version, SemanticVersion.Parse("1.2"));
         }
-        
+
         [Fact]
         public void GetUpdatesDoesNotInvokeServiceMethodIfLocalRepositoryDoesNotHaveAnyPackages()
         {
@@ -277,7 +277,7 @@ namespace NuGet.Test
             var dependency = new PackageDependency("B");
 
             // Act
-            IPackage package = DependencyResolveUtility.ResolveDependency(repository, dependency, allowPrereleaseVersions: false, preferListedPackages: false);
+            IPackage package = repository.ResolveDependency(dependency, allowPrereleaseVersions: false, preferListedPackages: false);
 
             // Assert
             Assert.Equal("B", package.Id);
@@ -331,24 +331,19 @@ namespace NuGet.Test
             PackageDependency dependency5 = PackageDependency.CreateDependency("B", "[1.0.0, 1.0.8]");
 
             // Act
-            IPackage package1 = DependencyResolveUtility.ResolveDependency(
-                repository,
-                dependency1, constraintProvider: null, allowPrereleaseVersions: false, 
+            IPackage package1 = repository.ResolveDependency(
+                dependency1, constraintProvider: null, allowPrereleaseVersions: false,
                 preferListedPackages: false, dependencyVersion: DependencyVersion.Lowest);
-            IPackage package2 = DependencyResolveUtility.ResolveDependency(
-                repository,
+            IPackage package2 = repository.ResolveDependency(
                 dependency2, constraintProvider: null, allowPrereleaseVersions: false,
                 preferListedPackages: false, dependencyVersion: DependencyVersion.Lowest);
-            IPackage package3 = DependencyResolveUtility.ResolveDependency(
-                repository,
+            IPackage package3 = repository.ResolveDependency(
                 dependency3, constraintProvider: null, allowPrereleaseVersions: false,
                 preferListedPackages: false, dependencyVersion: DependencyVersion.Lowest);
-            IPackage package4 = DependencyResolveUtility.ResolveDependency(
-                repository,
+            IPackage package4 = repository.ResolveDependency(
                 dependency4, constraintProvider: null, allowPrereleaseVersions: false,
                 preferListedPackages: false, dependencyVersion: DependencyVersion.Lowest);
-            IPackage package5 = DependencyResolveUtility.ResolveDependency(
-                repository,
+            IPackage package5 = repository.ResolveDependency(
                 dependency5, constraintProvider: null, allowPrereleaseVersions: false,
                 preferListedPackages: false, dependencyVersion: DependencyVersion.Lowest);
 
@@ -396,24 +391,19 @@ namespace NuGet.Test
             PackageDependency dependency5 = PackageDependency.CreateDependency("B", "[1.0.0, 2.0]");
 
             // Act
-            IPackage package1 = DependencyResolveUtility.ResolveDependency(
-                repository,
+            IPackage package1 = repository.ResolveDependency(
                 dependency1, constraintProvider: null, allowPrereleaseVersions: false,
                 preferListedPackages: false, dependencyVersion: DependencyVersion.Highest);
-            IPackage package2 = DependencyResolveUtility.ResolveDependency(
-                repository,
+            IPackage package2 = repository.ResolveDependency(
                 dependency2, constraintProvider: null, allowPrereleaseVersions: false,
                 preferListedPackages: false, dependencyVersion: DependencyVersion.Highest);
-            IPackage package3 = DependencyResolveUtility.ResolveDependency(
-                repository,
+            IPackage package3 = repository.ResolveDependency(
                 dependency3, constraintProvider: null, allowPrereleaseVersions: false,
                 preferListedPackages: false, dependencyVersion: DependencyVersion.Highest);
-            IPackage package4 = DependencyResolveUtility.ResolveDependency(
-                repository,
+            IPackage package4 = repository.ResolveDependency(
                 dependency4, constraintProvider: null, allowPrereleaseVersions: false,
                 preferListedPackages: false, dependencyVersion: DependencyVersion.Highest);
-            IPackage package5 = DependencyResolveUtility.ResolveDependency(
-                repository,
+            IPackage package5 = repository.ResolveDependency(
                 dependency5, constraintProvider: null, allowPrereleaseVersions: false,
                 preferListedPackages: false, dependencyVersion: DependencyVersion.Highest);
 
@@ -429,14 +419,14 @@ namespace NuGet.Test
             Assert.Equal("B", package5.Id);
             Assert.Equal(new SemanticVersion("2.0"), package5.Version);
         }
-        
+
         // Test that when dependencyVersion is DependencyVersions.HighestMinor, 
         // the dependency with the highest minor version is picked.
         [Fact]
         public void FindDependencyPicksHighestMinor()
         {
             // Arrange
-            var repository = new MockPackageRepository() {                
+            var repository = new MockPackageRepository() {
                 PackageUtility.CreatePackage("B", "1.0"),
                 PackageUtility.CreatePackage("B", "1.0.1"),
                 PackageUtility.CreatePackage("B", "1.0.9"),
@@ -461,24 +451,19 @@ namespace NuGet.Test
             PackageDependency dependency5 = PackageDependency.CreateDependency("B", "[1.0.0, 2.0]");
 
             // Act
-            IPackage package1 = DependencyResolveUtility.ResolveDependency(
-                repository,
+            IPackage package1 = repository.ResolveDependency(
                 dependency1, constraintProvider: null, allowPrereleaseVersions: false,
                 preferListedPackages: false, dependencyVersion: DependencyVersion.HighestMinor);
-            IPackage package2 = DependencyResolveUtility.ResolveDependency(
-                repository,
+            IPackage package2 = repository.ResolveDependency(
                 dependency2, constraintProvider: null, allowPrereleaseVersions: false,
                 preferListedPackages: false, dependencyVersion: DependencyVersion.HighestMinor);
-            IPackage package3 = DependencyResolveUtility.ResolveDependency(
-                repository,
+            IPackage package3 = repository.ResolveDependency(
                 dependency3, constraintProvider: null, allowPrereleaseVersions: false,
                 preferListedPackages: false, dependencyVersion: DependencyVersion.HighestMinor);
-            IPackage package4 = DependencyResolveUtility.ResolveDependency(
-                repository,
+            IPackage package4 = repository.ResolveDependency(
                 dependency4, constraintProvider: null, allowPrereleaseVersions: false,
                 preferListedPackages: false, dependencyVersion: DependencyVersion.HighestMinor);
-            IPackage package5 = DependencyResolveUtility.ResolveDependency(
-                repository,
+            IPackage package5 = repository.ResolveDependency(
                 dependency5, constraintProvider: null, allowPrereleaseVersions: false,
                 preferListedPackages: false, dependencyVersion: DependencyVersion.HighestMinor);
 
@@ -523,16 +508,11 @@ namespace NuGet.Test
             PackageDependency dependency5 = PackageDependency.CreateDependency("B", "[1.0.0, 1.0.8]");
 
             // Act
-            IPackage package1 = DependencyResolveUtility.ResolveDependency(
-                repository, dependency1, constraintProvider: null, allowPrereleaseVersions: false, preferListedPackages: false, dependencyVersion: DependencyVersion.HighestPatch);
-            IPackage package2 = DependencyResolveUtility.ResolveDependency(
-                repository, dependency2, constraintProvider: null, allowPrereleaseVersions: false, preferListedPackages: false, dependencyVersion: DependencyVersion.HighestPatch);
-            IPackage package3 = DependencyResolveUtility.ResolveDependency(
-                repository, dependency3, constraintProvider: null, allowPrereleaseVersions: false, preferListedPackages: false, dependencyVersion: DependencyVersion.HighestPatch);
-            IPackage package4 = DependencyResolveUtility.ResolveDependency(
-                repository, dependency4, constraintProvider: null, allowPrereleaseVersions: false, preferListedPackages: false, dependencyVersion: DependencyVersion.HighestPatch);
-            IPackage package5 = DependencyResolveUtility.ResolveDependency(
-                repository, dependency5, constraintProvider: null, allowPrereleaseVersions: false, preferListedPackages: false, dependencyVersion: DependencyVersion.HighestPatch);
+            IPackage package1 = repository.ResolveDependency(dependency1, constraintProvider: null, allowPrereleaseVersions: false, preferListedPackages: false, dependencyVersion: DependencyVersion.HighestPatch);
+            IPackage package2 = repository.ResolveDependency(dependency2, constraintProvider: null, allowPrereleaseVersions: false, preferListedPackages: false, dependencyVersion: DependencyVersion.HighestPatch);
+            IPackage package3 = repository.ResolveDependency(dependency3, constraintProvider: null, allowPrereleaseVersions: false, preferListedPackages: false, dependencyVersion: DependencyVersion.HighestPatch);
+            IPackage package4 = repository.ResolveDependency(dependency4, constraintProvider: null, allowPrereleaseVersions: false, preferListedPackages: false, dependencyVersion: DependencyVersion.HighestPatch);
+            IPackage package5 = repository.ResolveDependency(dependency5, constraintProvider: null, allowPrereleaseVersions: false, preferListedPackages: false, dependencyVersion: DependencyVersion.HighestPatch);
 
             // Assert
             Assert.Equal("B", package1.Id);
@@ -558,9 +538,9 @@ namespace NuGet.Test
         {
             Mock<IPackageRepository> repository = new Mock<IPackageRepository>();
             var packages = new List<IPackage> {
-                                   CreateMockPackage("A", "1.0", "scripts style"), 
-                                   CreateMockPackage("B", "1.0", "testing"), 
-                                   CreateMockPackage("C", "2.0", "xaml"), 
+                                   CreateMockPackage("A", "1.0", "scripts style"),
+                                   CreateMockPackage("B", "1.0", "testing"),
+                                   CreateMockPackage("C", "2.0", "xaml"),
                                    CreateMockPackage("A", "1.2", "a updated desc") };
             if (includePrerelease)
             {
