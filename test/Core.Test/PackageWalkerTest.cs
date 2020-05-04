@@ -57,7 +57,7 @@ namespace NuGet.Test
                                                              });
 
             IPackageOperationResolver resolver = new InstallWalker(new MockPackageRepository(),
-                                                             new DependencyResolverFromRepo(new MockPackageRepository()),
+                                                             new MockPackageRepository(),
                                                              NullLogger.Instance,
                                                              ignoreDependencies: false,
                                                              allowPrereleaseVersions: false,
@@ -87,7 +87,7 @@ namespace NuGet.Test
 
             IPackageOperationResolver resolver = new InstallWalker(
                 localRepository,
-                new DependencyResolverFromRepo(repository.Object),
+                repository.Object,
                 NullLogger.Instance,
                 ignoreDependencies: false,
                 allowPrereleaseVersions: false,
@@ -123,7 +123,7 @@ namespace NuGet.Test
             var localRepository = new MockPackageRepository();
 
             IPackageOperationResolver resolver = new InstallWalker(localRepository,
-                                                             new DependencyResolverFromRepo(repository.Object),
+                                                             repository.Object,
                                                              NullLogger.Instance,
                                                              ignoreDependencies: false,
                                                              allowPrereleaseVersions: false,
@@ -166,7 +166,7 @@ namespace NuGet.Test
 
             IPackageOperationResolver resolver = new InstallWalker(
                 localRepository,
-                new DependencyResolverFromRepo(sourceRepository),
+                sourceRepository,
                 NullLogger.Instance,
                 ignoreDependencies: false,
                 allowPrereleaseVersions: false,
@@ -216,7 +216,7 @@ namespace NuGet.Test
             sourceRepository.AddPackage(packageD);
 
             IPackageOperationResolver resolver = new InstallWalker(localRepository,
-                                                             new DependencyResolverFromRepo(sourceRepository),
+                                                             sourceRepository,
                                                              NullLogger.Instance,
                                                              ignoreDependencies: false,
                                                              allowPrereleaseVersions: false,
@@ -283,7 +283,7 @@ namespace NuGet.Test
 
 
             IPackageOperationResolver resolver = new InstallWalker(localRepository,
-                                                                   new DependencyResolverFromRepo(sourceRepository),
+                                                                   sourceRepository,
                                                                    NullLogger.Instance,
                                                                    ignoreDependencies: false,
                                                                    allowPrereleaseVersions: false,
@@ -442,7 +442,7 @@ namespace NuGet.Test
             sourceRepository.AddPackage(packageB10);
 
             IPackageOperationResolver resolver = new InstallWalker(localRepository,
-                                                             new DependencyResolverFromRepo(sourceRepository),
+                                                             sourceRepository,
                                                              NullLogger.Instance,
                                                              ignoreDependencies: false,
                                                              allowPrereleaseVersions: false,
@@ -484,7 +484,7 @@ namespace NuGet.Test
             sourceRepository.AddPackage(B20);
 
             IPackageOperationResolver resolver = new UpdateWalker(localRepository,
-                                                                  new DependencyResolverFromRepo(sourceRepository),
+                                                                  sourceRepository,
                                                                   new DependentsWalker(localRepository),
                                                                   NullConstraintProvider.Instance,
                                                                   NullLogger.Instance,
@@ -531,7 +531,7 @@ namespace NuGet.Test
             sourceRepository.AddPackage(B20);
 
             IPackageOperationResolver resolver = new InstallWalker(localRepository,
-                                                                   new DependencyResolverFromRepo(sourceRepository),
+                                                                   sourceRepository,
                                                                    constraintProvider.Object,
                                                                    null,
                                                                    NullLogger.Instance,
@@ -559,7 +559,7 @@ namespace NuGet.Test
             sourceRepository.AddPackage(packageB);
 
             IPackageOperationResolver resolver = new InstallWalker(localRepository,
-                                                             new DependencyResolverFromRepo(sourceRepository),
+                                                             sourceRepository,
                                                              NullLogger.Instance,
                                                              ignoreDependencies: false,
                                                              allowPrereleaseVersions: false,
@@ -587,7 +587,7 @@ namespace NuGet.Test
             sourceRepository.AddPackage(packageB);
 
             IPackageOperationResolver resolver = new InstallWalker(localRepository,
-                                                             new DependencyResolverFromRepo(sourceRepository),
+                                                             sourceRepository,
                                                              NullLogger.Instance,
                                                              ignoreDependencies: false,
                                                              allowPrereleaseVersions: false,
@@ -635,7 +635,7 @@ namespace NuGet.Test
 
 
             IPackageOperationResolver resolver = new InstallWalker(localRepository,
-                                                                   new DependencyResolverFromRepo(sourceRepository),
+                                                                   sourceRepository,
                                                                    NullLogger.Instance,
                                                                    ignoreDependencies: false,
                                                                    allowPrereleaseVersions: false,
@@ -726,7 +726,7 @@ namespace NuGet.Test
 
             IPackageOperationResolver resolver = new UpdateWalker(
                 localRepository,
-                new DependencyResolverFromRepo(sourceRepository),
+                sourceRepository,
                 new DependentsWalker(localRepository),
                 NullConstraintProvider.Instance,
                 NullLogger.Instance,
@@ -968,7 +968,7 @@ namespace NuGet.Test
             sourceRepository.AddPackage(toolsPackage);
 
             IPackageOperationResolver resolver = new UpdateWalker(localRepository,
-                                                                   new DependencyResolverFromRepo(sourceRepository),
+                                                                   sourceRepository,
                                                                    new DependentsWalker(localRepository),
                                                                    NullConstraintProvider.Instance,
                                                                    NullLogger.Instance,
@@ -1141,7 +1141,7 @@ namespace NuGet.Test
 
             IPackageOperationResolver resolver = new InstallWalker(
                 new MockPackageRepository(),
-                new DependencyResolverFromRepo(repository),
+                repository,
                 NullLogger.Instance,
                 ignoreDependencies: false,
                 allowPrereleaseVersions: false,
@@ -1190,7 +1190,7 @@ namespace NuGet.Test
 
 
             IPackageOperationResolver resolver = new InstallWalker(new MockPackageRepository(),
-                new DependencyResolverFromRepo(repository),
+                repository,
                 constraintProvider: null,
                 logger: NullLogger.Instance,
                 targetFramework: null,
@@ -1237,7 +1237,7 @@ namespace NuGet.Test
 
 
             IPackageOperationResolver resolver = new InstallWalker(new MockPackageRepository(),
-                new DependencyResolverFromRepo(repository),
+                repository,
                 constraintProvider: null,
                 logger: NullLogger.Instance,
                 targetFramework: null,
@@ -1295,7 +1295,7 @@ namespace NuGet.Test
             };
 
             var resolver = new InstallWalker(localRepository,
-                new DependencyResolverFromRepo(sourceRepository),
+                sourceRepository,
                 constraintProvider: NullConstraintProvider.Instance,
                 logger: NullLogger.Instance,
                 targetFramework: null,
